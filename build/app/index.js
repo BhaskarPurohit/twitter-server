@@ -17,6 +17,7 @@ const express_1 = __importDefault(require("express"));
 const server_1 = require("@apollo/server");
 const express4_1 = require("@apollo/server/express4");
 const body_parser_1 = __importDefault(require("body-parser"));
+const user_1 = require("./user");
 //when we get  some data from the server, it is query
 //when sending data to the server, mutation
 function initServer() {
@@ -25,16 +26,16 @@ function initServer() {
         app.use(body_parser_1.default.json());
         const graphqlServer = new server_1.ApolloServer({
             typeDefs: `
+        ${user_1.User.types}
         type Query{
-            sayHello:String,
+        ${user_1.User.queries}
+            
             
 
         }
         `,
             resolvers: {
-                Query: {
-                    sayHello: () => `hello from graph ql`,
-                },
+                Query: Object.assign({}, user_1.User.resolvers.queries),
             },
         });
         yield graphqlServer.start();
@@ -43,3 +44,4 @@ function initServer() {
     });
 }
 exports.initServer = initServer;
+//postgres://postgres.kzexygmdlqgxtypelngw:2jwCxXYd1utJzzr9@aws-0-ap-south-1.pooler.supabase.com:6543/postgres

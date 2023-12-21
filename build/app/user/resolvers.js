@@ -9,27 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("./app");
-function init() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const app = yield (0, app_1.initServer)();
-        app.listen(8000, () => console.log(`chal raha hai PORT:8000`));
-    });
-}
-init();
-/**
- * model User{
-  id String @id @default(cuid())
-  firstName String
-  lastName String?
-  email String @unique
-  profileImageURL String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
- *
- *
- *
- */ 
+exports.resolvers = void 0;
+const queries = {
+    verifyGoogleToken: (parent, { token }) => __awaiter(void 0, void 0, void 0, function* () {
+        return token;
+    })
+};
+exports.resolvers = { queries };

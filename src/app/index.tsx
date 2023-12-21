@@ -3,7 +3,7 @@ import { ApolloServer } from "@apollo/server";
 import {expressMiddleware} from "@apollo/server/express4"
 import bodyParser from 'body-parser'
 import { prismaClient } from "../clients/db";
-
+import {User} from "./user"
 //when we get  some data from the server, it is query
 //when sending data to the server, mutation
 export async function initServer(){
@@ -14,15 +14,17 @@ export async function initServer(){
 
     const graphqlServer = new ApolloServer({
         typeDefs:`
+        ${User.types}
         type Query{
-            sayHello:String,
+        ${User.queries}
+            
             
 
         }
         `,
         resolvers:{
             Query:{
-                sayHello:()=> `hello from graph ql`,
+                ...User.resolvers.queries,
                 
             },
            
